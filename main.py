@@ -34,12 +34,18 @@ def get_state_data(guess):
 
 
 def start_game():
-    while True:
+    game_running = True
+    while game_running:
         user_guess = screen.textinput(title=f"{len(states_guessed)}/50 States Correct",
                                         prompt="Type the name of a state")
         state_guess_data = get_state_data(user_guess.title())
-        if not state_guess_data.empty:
+        if state_guess_data is not None:
             display_state_name(state_guess_data)
+        if len(states_guessed) == 50:
+            game_running = False
+            pen.setpos(0,0)
+            pen.write("Congrats! You guessed all 50 states!", False, "center", ("Arial", 38, "normal"))
+
         screen.update()
 
 
